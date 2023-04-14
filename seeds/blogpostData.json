@@ -1,0 +1,19 @@
+[
+    {
+        "title": "MVC is good for you",
+        "description": "Why is MVC good for you",
+        "user_id": 1
+    },
+    {
+        "title": "Javascript is becoming mainstream",
+        "description": "You can use javascript wherever you like",
+        "user_id": 2
+    },
+    {
+        "title": "Sequelize makes SQL simple",
+        "description": "Use sequelize to save some time",
+        "user_id": 3
+    }
+
+
+]

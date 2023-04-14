@@ -1,0 +1,22 @@
+<div class="text-center">
+  <h1>{{userID}}</h1>
+  <h2>{{title}}</h2>
+  <p>{{description}}</p>
+  <p>Created by {{user.username}} on {{format_date date_created}}</p>
+  <h4>Comments</h4>
+  {{#each comments as |comment| }}
+  <p>{{comment.comment}}</p>
+  <p>Posted by {{user.username}} on {{format_date date_created}}</p>
+  {{/each}}
+  {{#if logged_in}}
+<textarea class="comment-text">Add your comment here</textarea>
+  <p>
+    <button class="btn btn-primary btn-comment">Add A Comment</button>
+  </p>
+<script src="/js/comments.js"></script>
+  {{else}}
+  <a href="/login">login to comment</a>
+  {{/if}}
+  
+
+
