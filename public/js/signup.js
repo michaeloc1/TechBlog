@@ -3,7 +3,15 @@ const signupFormHandler = async (event) => {
     const username = document.querySelector('#name-signup').value.trim();
     const email = document.querySelector('#email-signup').value.trim();
     const password = document.querySelector('#password-signup').value.trim();
-  
+
+    if(password.length < 8){
+      document.getElementById("error").innerHTML = "Password must be at least 8 characters"
+      return;
+    }
+
+
+
+    
     if (username && email && password) {
       const response = await fetch('/api/users', {
         method: 'POST',
@@ -14,9 +22,10 @@ const signupFormHandler = async (event) => {
       if (response.ok) {
         document.location.replace('/');
       } else {
-        alert(response.statusText);
+        document.getElementById("error").innerHTML = "Unable to create user"
       }
     }
   };
+
 
   document.querySelector('.signup-form').addEventListener('submit', signupFormHandler)
