@@ -63,7 +63,6 @@ const getUpdateBlogpost = async (id) => {
 
   if (response.ok) {
     const jsonData = await response.json();
-    console.log(jsonData)
     document.getElementById('update-blogpost-title').value = jsonData.title;
     document.getElementById('update-blogpost-description').value = jsonData.description;
     const btn = document.getElementById('update-btn');
@@ -82,7 +81,6 @@ const updateHandler = async (event) => {
   const description = document.getElementById('update-blogpost-description').value;
   const btn = document.getElementById('update-btn');
   const id = btn.getAttribute('data-id');
-  console.log(title, description)
 
   if (title && description) {
     const response = await fetch(`/api/blogpost/${id}`, {

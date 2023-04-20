@@ -34,9 +34,7 @@ router.delete('/:id', withAuth, async (req, res) => {
     res.status(500).json(err);
   }
 });
-router.get('/:id', async (req, res) => {
-  console.log("in router get for blogpost")
-  console.log(req.params.id)
+router.get('/:id', withAuth, async (req, res) => {
 try{
   const blogpostData = await BlogPost.findByPk(req.params.id)
   const blogpost = blogpostData.get({ plain: true });
@@ -48,14 +46,13 @@ catch{
 }
 });
 
-router.put('/:id', async (req, res) => {
+router.put('/:id', withAuth, async (req, res) => {
   try {
-    console.log(req.body)
-    console.log(req.params.id)
     const updateBlog = await BlogPost.update(req.body,{
-      where: { id: req.params.id }
+      where: { id: req.params.id,
+      user_id: req.session.user_id,
+       }
     });
-    console.log(updateBlog)
     if (!updateBlog) {
       res.status(404).json({ message: 'No tag with this id!' });
       return;
