@@ -66,8 +66,38 @@ const getUpdateBlogpost = async (id) => {
     console.log(jsonData)
     document.getElementById('update-blogpost-title').value = jsonData.title;
     document.getElementById('update-blogpost-description').value = jsonData.description;
+    const btn = document.getElementById('update-btn');
+    btn.setAttribute('data-id', jsonData.id)
+    
   } else {
     alert('Failed to get post');
+  }
+
+}
+
+const updateHandler = async (event) => {
+  event.preventDefault();
+
+  const title = document.getElementById('update-blogpost-title').value;
+  const description = document.getElementById('update-blogpost-description').value;
+  const btn = document.getElementById('update-btn');
+  const id = btn.getAttribute('data-id');
+  console.log(title, description)
+
+  if (title && description) {
+    const response = await fetch(`/api/blogpost/${id}`, {
+      method: 'PUT',
+      body: JSON.stringify({ title, description }),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    if (response.ok) {
+      document.location.replace('/dashboard');
+    } else {
+      alert('Failed to update blogpost');
+    }
   }
 
 }
@@ -79,5 +109,9 @@ document
 document
   .querySelector('.blogpost-list')
   .addEventListener('click', blogpostHandler);
+
+  document
+  .querySelector('.update-blogpost-form')
+  .addEventListener('submit', updateHandler);
 
 

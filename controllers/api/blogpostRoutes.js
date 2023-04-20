@@ -47,22 +47,24 @@ catch{
   res.status(500).json(err);
 }
 });
-// router.get('/id', async (req, res) => {
-// console.log("In blogpost 2 route")
-//   try {
-//     const blogpostData = await BlogPost.findByPk(req.params.id)
 
-    
-
-//     const blogpost = blogpostData.get({ plain: true });
-//    // return res.json;
-   
-//    return res.json(blogpostData)
-
-
-//   } catch (err) {
-//     res.status(500).json(err);
-//  }
-// });
+router.put('/:id', async (req, res) => {
+  try {
+    console.log(req.body)
+    console.log(req.params.id)
+    const updateBlog = await BlogPost.update(req.body,{
+      where: { id: req.params.id }
+    });
+    console.log(updateBlog)
+    if (!updateBlog) {
+      res.status(404).json({ message: 'No tag with this id!' });
+      return;
+    }
+    res.status(200).json(updateBlog);
+  
+  } catch (err) {
+    res.status(500).json(err);
+  }
+})
 
 module.exports = router;
