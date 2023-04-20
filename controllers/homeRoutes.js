@@ -3,9 +3,8 @@ const { BlogPost, User, Comment } = require('../models');
 const withAuth = require('../utils/auth');
 
 router.get('/', async (req, res) => {
-  console.log("In the homepage route")
   try {
-    // Get all projects and JOIN with user data
+    // Get all blogposts and JOIN with user data
     const blogpostData = await BlogPost.findAll({
       include: [
         {
@@ -18,7 +17,6 @@ router.get('/', async (req, res) => {
 
     // Serialize data so the template can read it
     const blogposts = blogpostData.map((blogpost) => blogpost.get({ plain: true }));
-    console.log(req.session)
     // Pass serialized data and session flag into template
     res.render('homepage', { 
       blogposts, 
@@ -84,25 +82,6 @@ router.get('/blogpost/:id', async (req, res) => {
   }
 });
 
-// Use withAuth middleware to prevent access to route
-router.get('/profile', withAuth, async (req, res) => {
-  try {
-    // Find the logged in user based on the session ID
-    const userData = await User.findByPk(req.session.user_id, {
-      attributes: { exclude: ['password'] },
-      include: [{ model: Project }],
-    });
-
-    const user = userData.get({ plain: true });
-
-    res.render('profile', {
-      ...user,
-      logged_in: req.session.logged_in 
-    });
-  } catch (err) {
-    res.status(500).json(err);
-  }
-});
 
 router.get('/dashboard', withAuth, async (req, res) => {
   try {

@@ -3,7 +3,6 @@ const { Comment } = require('../../models');
 const withAuth = require('../../utils/auth');
 
 router.post('/', withAuth, async (req, res) => {
-console.log("In api comment route")
   try {
     const newComment = await Comment.create({
       ...req.body,
