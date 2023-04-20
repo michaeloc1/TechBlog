@@ -54,7 +54,22 @@ const deleteBlogpost = async (id) => {
 
 const getUpdateBlogpost = async (id) => {
   const updateSection = document.querySelector('.hidden');
-  updateSection.style.display = 'block'
+  updateSection.style.display = 'block';
+
+  const response = await fetch(`/api/blogpost/${id}`,  {
+    method: 'GET',
+  });
+
+
+  if (response.ok) {
+    const jsonData = await response.json();
+    console.log(jsonData)
+    document.getElementById('update-blogpost-title').value = jsonData.title;
+    document.getElementById('update-blogpost-description').value = jsonData.description;
+  } else {
+    alert('Failed to get post');
+  }
+
 }
 
 document

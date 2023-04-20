@@ -64,12 +64,7 @@ router.get('/blogpost/:id', async (req, res) => {
 
     const comments = commentData.map((comment) => comment.get({ plain: true }));
 
-    console.log(comments)
-
-    
  
-
-
     res.render('blogpost', {
       ...blogpost,
       comments,
@@ -81,7 +76,6 @@ router.get('/blogpost/:id', async (req, res) => {
     res.status(500).json(err);
   }
 });
-
 
 router.get('/dashboard', withAuth, async (req, res) => {
   try {

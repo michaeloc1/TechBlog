@@ -34,5 +34,35 @@ router.delete('/:id', withAuth, async (req, res) => {
     res.status(500).json(err);
   }
 });
+router.get('/:id', async (req, res) => {
+  console.log("in router get for blogpost")
+  console.log(req.params.id)
+try{
+  const blogpostData = await BlogPost.findByPk(req.params.id)
+  const blogpost = blogpostData.get({ plain: true });
+  return res.json(blogpost)
+
+}
+catch{
+  res.status(500).json(err);
+}
+});
+// router.get('/id', async (req, res) => {
+// console.log("In blogpost 2 route")
+//   try {
+//     const blogpostData = await BlogPost.findByPk(req.params.id)
+
+    
+
+//     const blogpost = blogpostData.get({ plain: true });
+//    // return res.json;
+   
+//    return res.json(blogpostData)
+
+
+//   } catch (err) {
+//     res.status(500).json(err);
+//  }
+// });
 
 module.exports = router;
