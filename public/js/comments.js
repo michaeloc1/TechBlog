@@ -5,7 +5,9 @@ const newCommentHandler = async (event) => {
    
   
     if (comment) {
-      const response = await fetch(`/api/comment`, {
+      const btn = document.getElementById('btn-comment');
+      id = btn.getAttribute('data-id')
+        const response = await fetch(`/api/comment/${id}`, {
         method: 'POST',
         body: JSON.stringify({comment}),
        //body: comment,
